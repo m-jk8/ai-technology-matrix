@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>AI Technology Landscape – Interaction Intelligence vs. Autonomy</title>
-  <meta name="description" content="Interactive matrix that places common AI solution types along two axes: Interaction Intelligence and Degree of Autonomy." />
   <style>
-    :root{
+    :root {
       --bg:#0f172a;
       --grid:rgba(255,255,255,.09);
       --text:#e5e7eb;
@@ -31,6 +30,7 @@
     .wrap{max-width:1200px;margin:24px auto;padding:12px 16px 36px}
     h1{font-size:clamp(20px,2.6vw,28px);color:#fff;margin:6px 0 10px}
     p.desc{color:var(--muted);margin:0 0 14px}
+
     /* Board */
     .board{
       position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;
@@ -69,11 +69,25 @@
       transition:transform .15s ease-out, box-shadow .15s ease-out
     }
     .bubble:hover{transform:translate(-50%,-50%) scale(1.04);box-shadow:0 14px 28px rgba(0,0,0,.45)}
+
     /* Tooltip */
-    #tooltip{position:fixed;display:none;background-color:#1e293b;color:#e5e7eb;border:1px solid #334155;
+    #tooltip{
+      position:fixed;display:none;background-color:#1e293b;color:#e5e7eb;border:1px solid #334155;
       border-radius:10px;padding:12px 14px;max-width:320px;font-size:13px;z-index:1000;pointer-events:none;
-      box-shadow:0 8px 24px rgba(0,0,0,.45);line-height:1.5}
+      box-shadow:0 8px 24px rgba(0,0,0,.45);line-height:1.5
+    }
     #tooltip h3{margin:0 0 6px 0;color:#fff;font-size:14px}
+
+    /* Mobile Tooltip */
+    #tooltip.mobile{
+      left:50% !important;top:auto !important;bottom:16px !important;transform:translateX(-50%);
+      max-width:min(92vw,420px);padding-right:36px
+    }
+    #tooltip .close{
+      position:absolute;top:6px;right:8px;border:0;background:transparent;color:#e5e7eb;
+      font-size:18px;line-height:1;cursor:pointer
+    }
+
     /* Details */
     .details{max-width:980px;margin:22px auto 0}
     .details h2{color:#fff;font-size:clamp(18px,2.2vw,24px);margin:0 0 10px}
@@ -85,7 +99,16 @@
 <body>
   <div class="wrap">
     <h1>AI Technology Landscape</h1>
-    <p class="desc">This interactive matrix provides a high-level overview of key AI technologies, positioning them along two critical axes: <strong>Interaction Intelligence</strong> (X-axis) and <strong>Degree of Autonomy</strong> (Y-axis). It serves as a primer to understand how these technologies differ in focus and capability, and how they build upon one another. Hover over any bubble for a quick summary or read the detailed explanations below.</p>
+    <p class="desc">
+      <a href="https://www.mh-invelopment.com/community" target="_blank" style="color:#f9a8d4; font-weight:600; text-decoration:none;">
+        TTX | The Industrial Intelligence Forum. Powered by MH-Invelopment GmbH.
+      </a>
+      <br><br>
+      This interactive matrix provides a high-level overview of key AI technologies, positioning them along two critical axes:
+      <strong>Interaction Intelligence</strong> (X-axis) and <strong>Degree of Autonomy</strong> (Y-axis). It serves as a primer to
+      understand how these technologies differ in focus and capability, and how they build upon one another. Hover over any bubble
+      for a quick summary or read the detailed explanations below.
+    </p>
 
     <div class="board" aria-label="AI landscape chart">
       <div class="axis-x">Interaction Intelligence →</div>
@@ -113,18 +136,25 @@
 
     <section class="details">
       <h2>A Deeper Dive Into Each Technology</h2>
+
       <h3>Classic Bots</h3>
       <p>Positioned in the bottom-left, these are the most basic systems. They operate on fixed rules and decision trees. Their intelligence is low because they cannot understand context beyond their programming, and their autonomy is minimal as they only react to specific user commands.</p>
+
       <h3>Robotic Process Automation (RPA)</h3>
       <p>RPA is placed high on autonomy but low on intelligence. These bots are workhorses designed to automate repetitive, rule-based digital tasks (e.g., data entry). They can execute long sequences of tasks without human intervention (high autonomy) but lack the intelligence to adapt to new situations or understand unstructured data.</p>
+
       <h3>Conversational AI</h3>
       <p>Located in the middle, these systems (like advanced chatbots or voice assistants) use Natural Language Processing (NLP) to understand and respond to human language. This gives them a moderate level of interaction intelligence. Their autonomy is also moderate, as they can guide a conversation to a goal but typically don't act beyond that dialog.</p>
+
       <h3>Cognitive Automation</h3>
       <p>This represents the evolution of RPA, infused with AI capabilities. By incorporating technologies like computer vision or NLP, these systems can handle unstructured data (e.g., reading an invoice) and make simple decisions. This increases both their intelligence and their useful autonomy compared to traditional RPA.</p>
+
       <h3>Generative AI</h3>
       <p>Positioned with high interaction intelligence, these models excel at understanding complex prompts and generating novel, context-aware content (text, images, code). Their autonomy is limited because they are primarily reactive, requiring a human prompt to initiate creation. They don't typically act on their own to achieve a goal.</p>
+
       <h3>Multimodal AI</h3>
       <p>This is a key capability of advanced AI, often overlapping with Generative AI. These models can process and integrate information from multiple sources (e.g., text, images, and audio) simultaneously. This leads to a richer, more human-like interaction intelligence and enables more complex, autonomous behavior in agents that perceive the world through multiple senses.</p>
+
       <h3>Agentic AI</h3>
       <p>Representing the cutting edge, Agentic AI sits at the top-right. These are autonomous systems designed to achieve complex goals with minimal human oversight. An "agent" uses other AI models (often generative and multimodal) as its "brain" to perceive its environment, create a plan, and execute actions. They are the pinnacle of both interaction intelligence and autonomy.</p>
     </section>
@@ -138,7 +168,6 @@
 
   <div id="tooltip"></div>
   <script>
-    // Hover tooltips
     const tips = {
       'b-classic': {title:'Classic Bots',text:'Rule-based, menu/IVR-style systems. Low autonomy and interaction intelligence. Example: a simple FAQ or IVR tree.'},
       'b-rpa': {title:'Robotic Process Automation (RPA)',text:'Automates repetitive, rule-based UI tasks. High execution autonomy, low adaptability or perception.'},
@@ -149,11 +178,56 @@
       'b-agentic': {title:'Agentic AI',text:'Goal-driven systems with planning, tool use, and feedback loops that act with minimal human oversight.'}
     };
     const tooltip=document.getElementById('tooltip');
-    document.querySelectorAll('.bubble').forEach(b=>{
-      b.addEventListener('mouseenter',()=>{const t=tips[b.id]; if(!t) return; tooltip.innerHTML=`<h3>${t.title}</h3><p>${t.text}</p>`; tooltip.style.display='block';});
-      b.addEventListener('mouseleave',()=>{tooltip.style.display='none';});
-      b.addEventListener('mousemove',(e)=>{tooltip.style.left=(e.clientX+14)+'px'; tooltip.style.top=(e.clientY+14)+'px';});
-    });
+    const bubbles=document.querySelectorAll('.bubble');
+    const hoverCapable=window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    function hideTooltip(){
+      tooltip.style.display='none';
+      tooltip.classList.remove('mobile');
+      tooltip.dataset.active='false';
+    }
+    function showTooltipDesktop(target,e){
+      const t=tips[target.id]; if(!t) return;
+      tooltip.innerHTML=`<h3>${t.title}</h3><p>${t.text}</p>`;
+      tooltip.style.display='block';
+      tooltip.style.left=(e.clientX+14)+'px';
+      tooltip.style.top=(e.clientY+14)+'px';
+    }
+    function showTooltipMobile(target){
+      const t=tips[target.id]; if(!t) return;
+      tooltip.innerHTML=`<button class="close" aria-label="Close">×</button><h3>${t.title}</h3><p>${t.text}</p>`;
+      tooltip.classList.add('mobile');
+      tooltip.style.display='block';
+      tooltip.dataset.active='true';
+      clearTimeout(tooltip._timer);
+      tooltip._timer=setTimeout(hideTooltip,4000);
+    }
+
+    if(hoverCapable){
+      bubbles.forEach(b=>{
+        b.addEventListener('mouseenter',(e)=>showTooltipDesktop(b,e));
+        b.addEventListener('mousemove',(e)=>{
+          if(tooltip.style.display==='block'){
+            tooltip.style.left=(e.clientX+14)+'px';
+            tooltip.style.top=(e.clientY+14)+'px';
+          }
+        });
+        b.addEventListener('mouseleave',hideTooltip);
+      });
+    } else {
+      bubbles.forEach(b=>{
+        b.addEventListener('click',(e)=>{
+          if(tooltip.dataset.active==='true' && tooltip.classList.contains('mobile')){
+            hideTooltip(); return;
+          }
+          showTooltipMobile(b);
+          e.stopPropagation();
+        });
+      });
+      document.addEventListener('click',(e)=>{if(!tooltip.contains(e.target)) hideTooltip();},{passive:true});
+      window.addEventListener('scroll',hideTooltip,{passive:true});
+      tooltip.addEventListener('click',(e)=>{if(e.target.classList.contains('close')) hideTooltip();});
+    }
   </script>
 </body>
 </html>
