@@ -20,6 +20,13 @@
       --gen:#f59e0b;
       --multi:#f9a8d4;
       --agentic:#a78bfa;
+
+      /* Layer styling */
+      --layer-bg: linear-gradient(180deg, rgba(148,163,184,.10), rgba(148,163,184,.04));
+      --layer-border: rgba(226,232,240,.10);
+      --chip-bg: rgba(30,41,59,.88);
+      --chip-border:#334155;
+      --chip-text:#e5e7eb;
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0}
@@ -31,6 +38,40 @@
     .wrap{max-width:1200px;margin:24px auto;padding:12px 16px 36px}
     h1{font-size:clamp(20px,2.6vw,28px);color:#fff;margin:6px 0 10px}
     p.desc{color:var(--muted);margin:0 0 14px}
+
+    /* Layer bands */
+    .layer{
+      position:relative;width:100%;border-radius:14px;overflow:hidden;
+      background:var(--layer-bg);
+      border:1px solid var(--layer-border);
+      box-shadow:0 8px 20px rgba(0,0,0,.25) inset, 0 2px 10px rgba(0,0,0,.35);
+      padding:10px 12px 12px;margin:14px 0
+    }
+    .layer .layer-title{
+      font-weight:700;letter-spacing:.3px;color:#e2e8f0;font-size:13px;margin:2px 4px 4px
+    }
+    .layer .layer-desc{
+      color:var(--muted);font-size:13px;margin:0 4px 8px;max-width:100ch
+    }
+    .chips{
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      padding:0 4px 6px;
+      margin:0;
+      list-style:none; /* remove bullets */
+    }
+    .chips > li{list-style:none}          /* extra safety */
+    .chips > li::marker{content:''}       /* Safari/Firefox */
+    /* Desktop: keep a single line where possible */
+    @media (min-width: 980px){ .chips{flex-wrap:nowrap} }
+    .chip{
+      flex:0 0 auto;padding:8px 12px;border-radius:999px;
+      background:var(--chip-bg);color:var(--chip-text);
+      border:1px solid var(--chip-border);
+      font-weight:600;letter-spacing:.2px;
+      box-shadow:0 2px 10px rgba(0,0,0,.35);
+      transition:transform .12s ease-out, box-shadow .12s ease-out
+    }
+    .chip:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.45)}
 
     /* Board */
     .board{
@@ -111,8 +152,24 @@
       for a quick summary or read the detailed explanations below.
     </p>
 
+    <!-- Business layer (above the board) -->
+    <div class="layer layer-business" role="region" aria-labelledby="businessLayerTitle" aria-describedby="businessLayerDesc" aria-label="Business Intelligence and Process Layer">
+      <div class="layer-title" id="businessLayerTitle">Business Intelligence &amp; Process Layer</div>
+      <p class="layer-desc" id="businessLayerDesc">
+        This layer captures the practices that turn technology into measurable value:
+        <em>Process Mining</em> for end-to-end transparency,
+        <em>KPI/ROI Monitoring</em> to track impact and adoption, and
+        <em>Workflow Optimization</em> to drive continuous improvement at scale.
+      </p>
+      <ul class="chips" role="list" aria-label="Business Intelligence & Process elements">
+        <li class="chip" role="listitem" aria-label="Process Mining">Process Mining</li>
+        <li class="chip" role="listitem" aria-label="KPI and ROI Monitoring">KPI/ROI Monitoring</li>
+        <li class="chip" role="listitem" aria-label="Workflow Optimization">Workflow Optimization</li>
+      </ul>
+    </div>
+
     <div class="board" aria-label="AI landscape chart">
-      <div class="axis-x">Interaction Intelligence →</div>
+      <div class="axis-x"><strong>Interaction Intelligence</strong> →</div>
       <div class="axis-y">↑ <strong>Degree of Autonomy</strong></div>
       <div class="tick-labels" aria-hidden="true">
         <div class="x" style="left:12.5%">Low</div>
@@ -133,6 +190,21 @@
       <div class="bubble" id="b-gen" style="--clr:var(--gen); left:82%; top:74%;">Generative AI</div>
       <div class="bubble" id="b-multi" style="--clr:var(--multi); left:74%; top:46%;">Multimodal AI</div>
       <div class="bubble" id="b-agentic" style="--clr:var(--agentic); left:90%; top:16%;">Agentic AI</div>
+    </div>
+
+    <!-- Frameworks layer (below the board) -->
+    <div class="layer layer-frameworks" role="region" aria-labelledby="frameworksLayerTitle" aria-describedby="frameworksLayerDesc" aria-label="Frameworks and Infrastructure Layer">
+      <div class="layer-title" id="frameworksLayerTitle">Frameworks &amp; Infrastructure Layer</div>
+      <p class="layer-desc" id="frameworksLayerDesc">
+        The technical foundation for everything above: model frameworks like <em>TensorFlow</em> and <em>PyTorch</em> for training and inference,
+        plus orchestration toolkits such as <em>LangChain</em> and <em>AutoGen</em> to connect models with tools, data, and applications.
+      </p>
+      <ul class="chips" role="list" aria-label="Framework and infrastructure examples">
+        <li class="chip" role="listitem" aria-label="TensorFlow">TensorFlow</li>
+        <li class="chip" role="listitem" aria-label="PyTorch">PyTorch</li>
+        <li class="chip" role="listitem" aria-label="LangChain">LangChain</li>
+        <li class="chip" role="listitem" aria-label="AutoGen">AutoGen</li>
+      </ul>
     </div>
 
     <section class="details">
@@ -160,12 +232,12 @@
       <p>Representing the cutting edge, Agentic AI sits at the top-right. These are autonomous systems designed to achieve complex goals with minimal human oversight. An "agent" uses other AI models (often generative and multimodal) as its "brain" to perceive its environment, create a plan, and execute actions. They are the pinnacle of both interaction intelligence and autonomy.</p>
     </section>
 
-<div class="notes" style="max-width:980px; margin:40px auto 0; padding-left:16px; padding-right:16px;">
-  <strong>Notes:</strong>
-  <br>• <em>Generative AI</em> sits high on interaction capability but only gains autonomy when orchestrated (tools/agents). 
-  <br>• <em>Agentic Systems</em> area is limited to solutions with planning + tool use + execution. 
-  <br>• <em>Cognitive Automation</em> is above RPA due to perception/decision components.
-</div>
+    <div class="notes" style="max-width:980px; margin:40px auto 0; padding-left:16px; padding-right:16px;">
+      <strong>Notes:</strong>
+      <br>• <em>Generative AI</em> sits high on interaction capability but only gains autonomy when orchestrated (tools/agents).
+      <br>• <em>Agentic Systems</em> area is limited to solutions with planning + tool use + execution.
+      <br>• <em>Cognitive Automation</em> is above RPA due to perception/decision components.
+    </div>
 
   </div>
 
